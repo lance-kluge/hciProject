@@ -1,0 +1,34 @@
+---
+import SidebarHeadingRow from './SidebarHeadingRow.astro';
+import SidebarLinkList from './SidebarLinkList.astro';
+import {
+	unreadCount,
+	className,
+	inboxFilters,
+	threadFilters,
+	messagingFilters
+} from '../../data/sidebar';
+---
+
+<aside class="h-screen w-72 shrink-0 border-r border-slate-200 bg-white">
+	<div class="sticky top-0 z-10 border-b border-slate-200 bg-white px-4 py-4">
+		<h2 class="text-sm font-semibold uppercase tracking-wide text-slate-900">{className}</h2>
+	</div>
+
+	<nav aria-label="Inbox sidebar" class="h-[calc(100vh-57px)] space-y-6 overflow-y-auto px-4 py-6">
+		<section>
+			<SidebarHeadingRow label="Inbox" count={unreadCount} />
+			<SidebarLinkList items={inboxFilters} />
+		</section>
+
+		<section>
+			<SidebarHeadingRow label="Threads" />
+			<SidebarLinkList items={threadFilters} />
+		</section>
+
+		<section>
+			<SidebarHeadingRow label="Messeging" />
+			<SidebarLinkList items={messagingFilters} />
+		</section>
+	</nav>
+</aside>

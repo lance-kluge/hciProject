@@ -1,0 +1,21 @@
+---
+interface Props {
+	items: string[];
+	indentClass?: string;
+}
+
+const { items, indentClass = 'pl-5' } = Astro.props;
+---
+
+<ul class="mt-1 space-y-1">
+	{items.map((item) => (
+		<li>
+			<button
+				type="button"
+				class={`w-full rounded-md px-3 py-2 text-left text-sm text-slate-700 hover:bg-slate-100 hover:text-slate-900 ${indentClass}`}
+			>
+				{item}
+			</button>
+		</li>
+	))}
+</ul>

@@ -1,0 +1,51 @@
+# macOS
+.DS_Store
+# Thumbnails
+Thumbs.db
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+logs/
+*.log
+
+# Build outputs
+dist/
+build/
+output/
+.astro/
+public/build/
+
+# Astro / Vite / cache
+.vite/
+.cache/
+/.vercel/
+.netlify/
+
+# Environment files
+.env
+.env.*.local
+
+# Editor directories and files
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# TypeScript
+*.tsbuildinfo
+
+# Misc
+.DS_Store
+Thumbs.db
+.env.local
+.eslintcache
+
+# Optional: OS generated files
+ehthumbs.db
+Icon?
+
+# End of file

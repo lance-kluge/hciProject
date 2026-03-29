@@ -1,0 +1,29 @@
+---
+interface Props {
+	label: string;
+	items: string[];
+}
+
+const { label, items } = Astro.props;
+---
+
+<details class="group rounded-md">
+	<summary class="list-none cursor-pointer rounded-md px-3 py-2 text-sm font-medium text-slate-800 hover:bg-slate-100">
+		<div class="flex items-center justify-between">
+			<span>{label}</span>
+			<span class="text-xs text-slate-500 transition-transform group-open:rotate-180">⌄</span>
+		</div>
+	</summary>
+	<ul class="mt-1 space-y-1">
+		{items.map((item) => (
+			<li>
+				<button
+					type="button"
+					class="w-full rounded-md px-3 py-2 pl-8 text-left text-sm text-slate-700 hover:bg-slate-100 hover:text-slate-900"
+				>
+					{item}
+				</button>
+			</li>
+		))}
+	</ul>
+</details>
