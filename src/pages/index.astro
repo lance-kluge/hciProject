@@ -1,5 +1,7 @@
 ---
 import LeftSidebar from '../components/sidebar/LeftSidebar.astro';
+import TopBarHeader from '../components/TopBarHeader.astro';
+import { unreadCount } from '../data/sidebar';
 import '../styles/global.css';
 
 ---
@@ -16,12 +18,15 @@ import '../styles/global.css';
 	<body class="min-h-screen bg-slate-100 text-slate-900">
 		<main class="flex min-h-screen">
 			<LeftSidebar />
-			<section class="flex-1 p-8">
-				<h1 class="text-2xl font-semibold">Home</h1>
-				<p class="mt-3 text-slate-600">
-					Main feed area placeholder for demo posts and messages.
-				</p>
-			</section>
+			<div class="flex min-h-screen flex-1 flex-col">
+				<TopBarHeader title="Messenger" unreadCount={unreadCount} />
+				<section class="flex-1 p-8">
+					<h2 class="text-2xl font-semibold">Home</h2>
+					<p class="mt-3 text-slate-600">
+						Main feed area placeholder for demo posts and messages.
+					</p>
+				</section>
+			</div>
 		</main>
 	</body>
 </html>
