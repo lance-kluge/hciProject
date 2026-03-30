@@ -1,9 +1,11 @@
 ---
+import ClassSelectorDropdown from './ClassSelectorDropdown.astro';
 import SidebarHeadingRow from './SidebarHeadingRow.astro';
 import SidebarLinkList from './SidebarLinkList.astro';
 import {
 	unreadCount,
-	className,
+	selectedClass,
+	classOptions,
 	inboxFilters,
 	threadFilters,
 	messagingFilters
@@ -12,7 +14,7 @@ import {
 
 <aside class="h-screen w-72 shrink-0 border-r border-slate-200 bg-white">
 	<div class="sticky top-0 z-10 border-b border-slate-200 bg-white px-4 py-4">
-		<h2 class="text-sm font-semibold uppercase tracking-wide text-slate-900">{className}</h2>
+		<ClassSelectorDropdown selectedClass={selectedClass} classOptions={classOptions} />
 	</div>
 
 	<nav aria-label="Inbox sidebar" class="h-[calc(100vh-57px)] space-y-6 overflow-y-auto px-4 py-6">

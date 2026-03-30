@@ -1,0 +1,29 @@
+---
+interface Props {
+	selectedClass: string;
+	classOptions: string[];
+}
+
+const { selectedClass, classOptions } = Astro.props;
+---
+
+<details class="group">
+	<summary class="list-none cursor-pointer rounded-md px-3 py-2 text-sm font-semibold uppercase tracking-wide text-slate-900 hover:bg-slate-100">
+		<div class="flex items-center justify-between gap-3">
+			<span class="truncate">{selectedClass}</span>
+			<span class="shrink-0 text-xs text-slate-500 transition-transform group-open:rotate-180">⌄</span>
+		</div>
+	</summary>
+	<ul class="mt-1 space-y-1 px-1">
+		{classOptions.map((classOption) => (
+			<li>
+				<button
+					type="button"
+					class="w-full rounded-md px-3 py-2 text-left text-sm text-slate-700 hover:bg-slate-100 hover:text-slate-900"
+				>
+					{classOption}
+				</button>
+			</li>
+		))}
+	</ul>
+</details>
