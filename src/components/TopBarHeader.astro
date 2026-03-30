@@ -9,60 +9,146 @@ const { title, unreadCount } = Astro.props;
 
 <header class="sticky top-0 z-20 flex h-16 items-center justify-between border-b border-slate-200 bg-white px-6">
 	<h1 class="text-xl font-semibold text-slate-900">{title}</h1>
-	<details class="group relative">
-		<summary
-			class="list-none rounded-full p-2 text-slate-700 transition hover:cursor-pointer hover:bg-slate-100 hover:text-slate-900"
-			aria-label="Open notifications"
-		>
-			<div class="relative">
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					stroke-width="2"
-					class="h-6 w-6"
-				>
-					<path
-						stroke-linecap="round"
-						stroke-linejoin="round"
-						d="M15 17h5l-1.405-1.405A2.032 2.032 0 0 1 18 14.158V11a6.002 6.002 0 0 0-4-5.659V5a2 2 0 1 0-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5"
-					/>
-					<path stroke-linecap="round" stroke-linejoin="round" d="M9 17a3 3 0 0 0 6 0" />
-				</svg>
-				<span class="absolute -right-2 -top-2 rounded-full bg-blue-600 px-1.5 py-0.5 text-xs font-semibold leading-none text-white">
-					{unreadCount}
-				</span>
-			</div>
-		</summary>
+	<div class="flex items-center gap-2">
+		<div class="relative rounded-full p-2 text-slate-700">
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="2"
+				class="h-6 w-6"
+			>
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					d="M15 17h5l-1.405-1.405A2.032 2.032 0 0 1 18 14.158V11a6.002 6.002 0 0 0-4-5.659V5a2 2 0 1 0-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5"
+				/>
+				<path stroke-linecap="round" stroke-linejoin="round" d="M9 17a3 3 0 0 0 6 0" />
+			</svg>
+			<span class="absolute -right-1 -top-1 rounded-full bg-blue-600 px-1.5 py-0.5 text-xs font-semibold leading-none text-white">
+				{unreadCount}
+			</span>
+		</div>
 
-		<div class="absolute right-0 top-12 w-72 rounded-lg border border-slate-200 bg-white p-4 shadow-lg">
-			<div class="flex items-center justify-between">
-				<p class="text-sm font-semibold text-slate-900">Notification Settings</p>
-				<span class="text-xs text-slate-500">{unreadCount} unread</span>
+		<button
+			id="open-general-settings"
+			type="button"
+			class="rounded-md border border-slate-300 bg-white px-3 py-1.5 text-sm font-medium text-slate-700 transition hover:bg-slate-50"
+		>
+			Default Settings
+		</button>
+	</div>
+</header>
+
+<div id="general-settings-overlay" class="fixed inset-0 z-50 hidden bg-slate-900/40 p-4 sm:p-8">
+	<div class="mx-auto mt-6 w-full max-w-4xl rounded-xl border border-slate-200 bg-white shadow-2xl">
+		<div class="flex items-center justify-between border-b border-slate-200 px-6 py-4">
+			<div>
+				<h2 class="text-lg font-semibold text-slate-900">General Notification Defaults</h2>
+				<p class="mt-0.5 text-sm text-slate-600">Account-wide settings used as defaults for every post.</p>
 			</div>
-			<div class="mt-3 space-y-2 text-sm text-slate-700">
-				<label class="flex items-center justify-between gap-3 rounded-md bg-slate-50 px-3 py-2">
-					<span>Thread replies</span>
-					<input type="checkbox" checked class="h-4 w-4" />
-				</label>
-				<label class="flex items-center justify-between gap-3 rounded-md bg-slate-50 px-3 py-2">
-					<span>Instructor mentions</span>
-					<input type="checkbox" checked class="h-4 w-4" />
-				</label>
-				<label class="flex items-center justify-between gap-3 rounded-md bg-slate-50 px-3 py-2">
-					<span>Direct messages</span>
-					<input type="checkbox" checked class="h-4 w-4" />
-				</label>
-			</div>
-			<div class="mt-3 flex gap-2">
-				<button type="button" class="rounded-md border border-slate-300 px-3 py-1.5 text-xs text-slate-700 hover:bg-slate-50">
-					Mute 1 hour
-				</button>
-				<button type="button" class="rounded-md border border-slate-300 px-3 py-1.5 text-xs text-slate-700 hover:bg-slate-50">
-					Mark all read
-				</button>
+			<button
+				id="close-general-settings"
+				type="button"
+				class="rounded-md border border-slate-300 px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-50"
+			>
+				Close
+			</button>
+		</div>
+
+		<div class="space-y-5 px-6 py-5">
+			<div class="overflow-x-auto rounded-lg border border-slate-200">
+				<table class="min-w-full text-sm">
+					<thead class="bg-slate-50 text-slate-700">
+						<tr>
+							<th class="px-4 py-3 text-left font-semibold">Event</th>
+							<th class="px-4 py-3 text-center font-semibold">
+								<div class="space-y-1">
+									<p>App Notification</p>
+									<label class="inline-flex items-center gap-2 text-xs font-normal">
+										<input data-master-col="app" type="checkbox" checked />
+										<span class="sr-only">Toggle app column</span>
+									</label>
+								</div>
+							</th>
+							<th class="px-4 py-3 text-center font-semibold">
+								<div class="space-y-1">
+									<p>Email Notification</p>
+									<label class="inline-flex items-center gap-2 text-xs font-normal">
+										<input data-master-col="email" type="checkbox" checked />
+										<span class="sr-only">Toggle email column</span>
+									</label>
+								</div>
+							</th>
+							<th class="px-4 py-3 text-center font-semibold">
+								<div class="space-y-1">
+									<p>Text Notification</p>
+									<label class="inline-flex items-center gap-2 text-xs font-normal">
+										<input data-master-col="text" type="checkbox" checked />
+										<span class="sr-only">Toggle text column</span>
+									</label>
+								</div>
+							</th>
+						</tr>
+					</thead>
+					<tbody class="divide-y divide-slate-200">
+						<tr>
+							<td class="px-4 py-3 text-slate-700">Student Posts</td>
+							<td class="px-4 py-3 text-center"><input data-col="app" type="checkbox" checked /></td>
+							<td class="px-4 py-3 text-center"><input data-col="email" type="checkbox" checked /></td>
+							<td class="px-4 py-3 text-center"><input data-col="text" type="checkbox" checked /></td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 text-slate-700">Instructor Posted</td>
+							<td class="px-4 py-3 text-center"><input data-col="app" type="checkbox" checked /></td>
+							<td class="px-4 py-3 text-center"><input data-col="email" type="checkbox" checked /></td>
+							<td class="px-4 py-3 text-center"><input data-col="text" type="checkbox" checked /></td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3 text-slate-700">Marked as Resolved</td>
+							<td class="px-4 py-3 text-center"><input data-col="app" type="checkbox" checked /></td>
+							<td class="px-4 py-3 text-center"><input data-col="email" type="checkbox" checked /></td>
+							<td class="px-4 py-3 text-center"><input data-col="text" type="checkbox" checked /></td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
 		</div>
-	</details>
-</header>
+	</div>
+</div>
+
+<script is:inline>
+	const openGeneralSettings = document.getElementById('open-general-settings');
+	const closeGeneralSettings = document.getElementById('close-general-settings');
+	const generalSettingsOverlay = document.getElementById('general-settings-overlay');
+	const masterColToggles = Array.from(document.querySelectorAll('[data-master-col]'));
+
+	if (openGeneralSettings && generalSettingsOverlay) {
+		openGeneralSettings.addEventListener('click', () => {
+			generalSettingsOverlay.classList.remove('hidden');
+		});
+	}
+
+	if (closeGeneralSettings && generalSettingsOverlay) {
+		closeGeneralSettings.addEventListener('click', () => {
+			generalSettingsOverlay.classList.add('hidden');
+		});
+
+		generalSettingsOverlay.addEventListener('click', (event) => {
+			if (event.target === generalSettingsOverlay) {
+				generalSettingsOverlay.classList.add('hidden');
+			}
+		});
+	}
+
+	masterColToggles.forEach((masterToggle) => {
+		masterToggle.addEventListener('change', () => {
+			const column = masterToggle.getAttribute('data-master-col');
+			const cells = document.querySelectorAll(`[data-col="${column}"]`);
+			cells.forEach((cell) => {
+				cell.checked = masterToggle.checked;
+			});
+		});
+	});
+</script>

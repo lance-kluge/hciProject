@@ -32,6 +32,29 @@ import '../../styles/global.css';
 							<div class="flex flex-wrap items-center justify-between gap-3">
 								<div class="flex items-center gap-2">
 									<h1 class="text-2xl font-semibold">Homework 1 Autograder Failure</h1>
+									<button
+										id="open-post-settings"
+										type="button"
+										class="rounded-md border border-slate-300 bg-white p-2 text-slate-700 transition hover:bg-slate-50"
+										aria-label="Open post notification settings"
+										title="Post Settings"
+									>
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											viewBox="0 0 24 24"
+											fill="none"
+											stroke="currentColor"
+											stroke-width="2"
+											class="h-4 w-4"
+										>
+											<path stroke-linecap="round" stroke-linejoin="round" d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
+											<path
+												stroke-linecap="round"
+												stroke-linejoin="round"
+												d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33h.01a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h.01a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v.01a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"
+											/>
+										</svg>
+									</button>
 									<span
 										id="instructor-notified-indicator"
 										class="hidden rounded-md bg-rose-100 px-2.5 py-1 text-xs font-semibold text-rose-700"
@@ -152,18 +175,97 @@ import '../../styles/global.css';
 										Use this action to notify the instructor about unresolved grading issues.
 									</p>
 								</div>
-								<button
-									id="notify-instructor-button"
-									type="button"
-									class="rounded-md bg-red-600 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-red-700"
-								>
-									Notify Instructor
-								</button>
+								<div class="flex items-center gap-2">
+									<button
+										id="notify-instructor-button"
+										type="button"
+										class="rounded-md bg-red-600 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-red-700"
+									>
+										Notify Instructor
+									</button>
+								</div>
 							</div>
 							<p id="notify-status" class="mt-4 hidden rounded-md bg-green-50 px-3 py-2 text-sm font-semibold text-green-700">
 								Instructor has been notified.
 							</p>
 						</section>
+
+						<div id="post-settings-overlay" class="fixed inset-0 z-40 hidden bg-slate-900/40 p-4 sm:p-8">
+							<div class="mx-auto mt-6 w-full max-w-3xl rounded-xl border border-slate-200 bg-white shadow-2xl">
+								<div class="flex items-center justify-between border-b border-slate-200 px-6 py-4">
+									<div>
+										<h2 class="text-lg font-semibold text-slate-900">Post Notification Settings</h2>
+										<p class="mt-0.5 text-sm text-slate-600">This menu only affects this thread.</p>
+									</div>
+									<button
+										id="close-post-settings"
+										type="button"
+										class="rounded-md border border-slate-300 px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-50"
+									>
+										Close
+									</button>
+								</div>
+
+								<div class="p-6">
+									<div class="overflow-x-auto rounded-lg border border-slate-200">
+										<table class="min-w-full text-sm">
+											<thead class="bg-slate-50 text-slate-700">
+												<tr>
+													<th class="px-4 py-3 text-left font-semibold">Event</th>
+													<th class="px-4 py-3 text-center font-semibold">
+														<div class="space-y-1">
+															<p>App Notification</p>
+															<label class="inline-flex items-center gap-2 text-xs font-normal">
+																<input data-post-master-col="app" type="checkbox" checked />
+																<span class="sr-only">Toggle app column</span>
+															</label>
+														</div>
+													</th>
+													<th class="px-4 py-3 text-center font-semibold">
+														<div class="space-y-1">
+															<p>Email Notification</p>
+															<label class="inline-flex items-center gap-2 text-xs font-normal">
+																<input data-post-master-col="email" type="checkbox" checked />
+																<span class="sr-only">Toggle email column</span>
+															</label>
+														</div>
+													</th>
+													<th class="px-4 py-3 text-center font-semibold">
+														<div class="space-y-1">
+															<p>Text Notification</p>
+															<label class="inline-flex items-center gap-2 text-xs font-normal">
+																<input data-post-master-col="text" type="checkbox" checked />
+																<span class="sr-only">Toggle text column</span>
+															</label>
+														</div>
+													</th>
+												</tr>
+											</thead>
+											<tbody class="divide-y divide-slate-200">
+												<tr>
+													<td class="px-4 py-3 text-slate-700">Student Posts</td>
+													<td class="px-4 py-3 text-center"><input data-post-col="app" type="checkbox" checked /></td>
+													<td class="px-4 py-3 text-center"><input data-post-col="email" type="checkbox" checked /></td>
+													<td class="px-4 py-3 text-center"><input data-post-col="text" type="checkbox" checked /></td>
+												</tr>
+												<tr>
+													<td class="px-4 py-3 text-slate-700">Instructor Posted</td>
+													<td class="px-4 py-3 text-center"><input data-post-col="app" type="checkbox" checked /></td>
+													<td class="px-4 py-3 text-center"><input data-post-col="email" type="checkbox" checked /></td>
+													<td class="px-4 py-3 text-center"><input data-post-col="text" type="checkbox" checked /></td>
+												</tr>
+												<tr>
+													<td class="px-4 py-3 text-slate-700">Marked as Resolved</td>
+													<td class="px-4 py-3 text-center"><input data-post-col="app" type="checkbox" checked /></td>
+													<td class="px-4 py-3 text-center"><input data-post-col="email" type="checkbox" checked /></td>
+													<td class="px-4 py-3 text-center"><input data-post-col="text" type="checkbox" checked /></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
 				</section>
 			</div>
@@ -179,9 +281,12 @@ import '../../styles/global.css';
 			const sameIssueCount = document.getElementById('same-issue-count');
 			const sameIssueIndicator = document.getElementById('same-issue-indicator');
 			const instructorNotifiedIndicator = document.getElementById('instructor-notified-indicator');
+			const postMasterColToggles = Array.from(document.querySelectorAll('[data-post-master-col]'));
+			const openPostSettings = document.getElementById('open-post-settings');
+			const closePostSettings = document.getElementById('close-post-settings');
+			const postSettingsOverlay = document.getElementById('post-settings-overlay');
 
 			const STORAGE_KEY_SAME_ISSUE = 'thread-homework-1-same-issue-voted';
-			const STORAGE_KEY_INSTRUCTOR_NOTIFIED = 'thread-homework-1-instructor-notified';
 
 			const setSameIssueVotedState = () => {
 				if (!sameIssueButton || !sameIssueIndicator) {
@@ -207,11 +312,22 @@ import '../../styles/global.css';
 				if (!notifyButton || !notifyStatus || !instructorNotifiedIndicator) {
 					return;
 				}
-				notifyButton.setAttribute('disabled', 'true');
-				notifyButton.classList.add('cursor-not-allowed', 'opacity-70');
-				notifyButton.textContent = 'Instructor Notified';
+				notifyButton.textContent = 'Undo Notify';
+				notifyButton.classList.remove('bg-red-600', 'hover:bg-red-700');
+				notifyButton.classList.add('bg-slate-700', 'hover:bg-slate-800');
 				notifyStatus.classList.remove('hidden');
 				instructorNotifiedIndicator.classList.remove('hidden');
+			};
+
+			const setInstructorUnnotifiedState = () => {
+				if (!notifyButton || !notifyStatus || !instructorNotifiedIndicator) {
+					return;
+				}
+				notifyButton.textContent = 'Notify Instructor';
+				notifyButton.classList.remove('bg-slate-700', 'hover:bg-slate-800');
+				notifyButton.classList.add('bg-red-600', 'hover:bg-red-700');
+				notifyStatus.classList.add('hidden');
+				instructorNotifiedIndicator.classList.add('hidden');
 			};
 
 			if (localStorage.getItem(STORAGE_KEY_SAME_ISSUE) === 'true') {
@@ -220,14 +336,16 @@ import '../../styles/global.css';
 				setSameIssueUnvotedState();
 			}
 
-			if (localStorage.getItem(STORAGE_KEY_INSTRUCTOR_NOTIFIED) === 'true') {
-				setInstructorNotifiedState();
-			}
+			setInstructorUnnotifiedState();
 
 			if (notifyButton && notifyStatus) {
 				notifyButton.addEventListener('click', () => {
+					const isNotified = !notifyStatus.classList.contains('hidden');
+					if (isNotified) {
+						setInstructorUnnotifiedState();
+						return;
+					}
 					setInstructorNotifiedState();
-					localStorage.setItem(STORAGE_KEY_INSTRUCTOR_NOTIFIED, 'true');
 				});
 			}
 
@@ -267,6 +385,34 @@ import '../../styles/global.css';
 					sameIssueCount.textContent = String(nextCount);
 					localStorage.setItem(STORAGE_KEY_SAME_ISSUE, 'true');
 					setSameIssueVotedState();
+				});
+			}
+
+			postMasterColToggles.forEach((masterToggle) => {
+				masterToggle.addEventListener('change', () => {
+					const column = masterToggle.getAttribute('data-post-master-col');
+					const cells = document.querySelectorAll(`[data-post-col="${column}"]`);
+					cells.forEach((cell) => {
+						cell.checked = masterToggle.checked;
+					});
+				});
+			});
+
+			if (openPostSettings && postSettingsOverlay) {
+				openPostSettings.addEventListener('click', () => {
+					postSettingsOverlay.classList.remove('hidden');
+				});
+			}
+
+			if (closePostSettings && postSettingsOverlay) {
+				closePostSettings.addEventListener('click', () => {
+					postSettingsOverlay.classList.add('hidden');
+				});
+
+				postSettingsOverlay.addEventListener('click', (event) => {
+					if (event.target === postSettingsOverlay) {
+						postSettingsOverlay.classList.add('hidden');
+					}
 				});
 			}
 		</script>

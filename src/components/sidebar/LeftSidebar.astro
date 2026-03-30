@@ -12,7 +12,7 @@ import {
 } from '../../data/sidebar';
 ---
 
-<aside class="h-screen w-72 shrink-0 border-r border-slate-200 bg-white">
+<aside class="sticky top-0 h-screen w-72 shrink-0 self-start border-r border-slate-200 bg-white">
 	<div class="sticky top-0 z-10 border-b border-slate-200 bg-white px-4 py-4">
 		<ClassSelectorDropdown selectedClass={selectedClass} classOptions={classOptions} />
 	</div>
@@ -24,7 +24,7 @@ import {
 		</section>
 
 		<section>
-			<SidebarHeadingRow label="Threads" href="#threads" filterGroup="thread" filterValue="all" />
+			<SidebarHeadingRow label="Threads" href="/#threads" filterGroup="thread" filterValue="all" />
 			<SidebarLinkList items={threadFilters} filterGroup="thread" />
 		</section>
 

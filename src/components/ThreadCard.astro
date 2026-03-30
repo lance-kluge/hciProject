@@ -18,6 +18,9 @@ const statusTextClass: Record<ThreadStatus, string> = {
 	orange: 'text-orange-600',
 	green: 'text-green-600'
 };
+
+const threadHref =
+	thread.href ?? `/threads/not-implemented?thread=${encodeURIComponent(thread.title)}&id=${thread.id}`;
 ---
 
 <article
@@ -37,21 +40,11 @@ const statusTextClass: Record<ThreadStatus, string> = {
 		{thread.footerLabel && <p class="mt-1 text-xs font-semibold text-red-600">{thread.footerLabel}</p>}
 	</div>
 
-	{thread.href ? (
-		<a
-			href={thread.href}
-			aria-label={`Open ${thread.title}`}
-			class="shrink-0 rounded-md border border-slate-300 bg-white px-3 py-2 text-slate-700 transition hover:bg-slate-50"
-		>
-			→
-		</a>
-	) : (
-		<button
-			type="button"
-			aria-label={`Open ${thread.title}`}
-			class="shrink-0 rounded-md border border-slate-300 bg-white px-3 py-2 text-slate-700 transition hover:bg-slate-50"
-		>
-			→
-		</button>
-	)}
+	<a
+		href={threadHref}
+		aria-label={`Open ${thread.title}`}
+		class="shrink-0 rounded-md border border-slate-300 bg-white px-3 py-2 text-slate-700 transition hover:bg-slate-50"
+	>
+		→
+	</a>
 </article>
