@@ -37,11 +37,21 @@ const statusTextClass: Record<ThreadStatus, string> = {
 		{thread.footerLabel && <p class="mt-1 text-xs font-semibold text-red-600">{thread.footerLabel}</p>}
 	</div>
 
-	<button
-		type="button"
-		aria-label={`Open ${thread.title}`}
-		class="shrink-0 rounded-md border border-slate-300 bg-white px-3 py-2 text-slate-700 transition hover:bg-slate-50"
-	>
-		→
-	</button>
+	{thread.href ? (
+		<a
+			href={thread.href}
+			aria-label={`Open ${thread.title}`}
+			class="shrink-0 rounded-md border border-slate-300 bg-white px-3 py-2 text-slate-700 transition hover:bg-slate-50"
+		>
+			→
+		</a>
+	) : (
+		<button
+			type="button"
+			aria-label={`Open ${thread.title}`}
+			class="shrink-0 rounded-md border border-slate-300 bg-white px-3 py-2 text-slate-700 transition hover:bg-slate-50"
+		>
+			→
+		</button>
+	)}
 </article>

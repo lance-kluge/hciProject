@@ -8,6 +8,7 @@ export interface ThreadMock {
 	statusLabel: string;
 	title: string;
 	aiSummary: string;
+	href?: string;
 	footerLabel?: string;
 }
 
@@ -60,7 +61,7 @@ export const mockThreads: ThreadMock[] = [
 		statusLabel: '[4 days unanswered]',
 		title: 'Homework 1 Autograder Failure',
 		aiSummary: 'AI Summary: Multiple students report failing tests despite matching expected output.',
-		footerLabel: 'Instructor notified'
+		href: '/threads/homework-1-autograder-failure'
 	},
 	{
 		id: 'thread-exam-1',
