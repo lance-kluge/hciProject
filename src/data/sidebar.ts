@@ -6,13 +6,6 @@ export const classOptions = [
 	'Test Class 2'
 ];
 
-export const inboxFilters = [
-	'Unanswered',
-	'Needs Instructor',
-	'Instructor Endorsed',
-	'My Posts'
-];
-
 export const threadFilters = ['Homeworks', 'Exams', 'Projects', 'General'];
 
 export const messagingFilters = [
