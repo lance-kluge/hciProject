@@ -1,5 +1,4 @@
 ---
-import HomeToolbar from '../components/HomeToolbar.astro';
 import LeftSidebar from '../components/sidebar/LeftSidebar.astro';
 import TopBarHeader from '../components/TopBarHeader.astro';
 import ThreadCard from '../components/ThreadCard.astro';
@@ -25,7 +24,15 @@ import '../styles/global.css';
 				<TopBarHeader title="Messenger" unreadCount={unreadCount} />
 				<section id="threads" class="flex-1 p-6 lg:p-7">
 					<div class="space-y-3">
-						<HomeToolbar />
+						<div class="flex items-center justify-between rounded-lg border border-slate-200 bg-white px-4 py-3">
+							<h2 class="text-sm font-semibold uppercase tracking-wide text-slate-800">Threads</h2>
+							<button
+								type="button"
+								class="rounded-md bg-green-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-green-700"
+							>
+								New Post
+							</button>
+						</div>
 
 						<div class="space-y-2.5">
 							{mockThreads.map((thread) => (
