@@ -6,7 +6,6 @@ import {
 	unreadCount,
 	selectedClass,
 	classOptions,
-	inboxFilters,
 	threadFilters,
 	messagingFilters
 } from '../../data/sidebar';
@@ -20,7 +19,6 @@ import {
 	<nav aria-label="Inbox sidebar" class="h-[calc(100vh-57px)] space-y-6 overflow-y-auto px-4 py-6">
 		<section>
 			<SidebarHeadingRow label="Inbox" count={unreadCount} />
-			<SidebarLinkList items={inboxFilters} />
 		</section>
 
 		<section>
