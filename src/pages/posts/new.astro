@@ -1,0 +1,259 @@
+---
+import LeftSidebar from '../../components/sidebar/LeftSidebar.astro';
+import TopBarHeader from '../../components/TopBarHeader.astro';
+import { unreadCount } from '../../data/sidebar';
+import '../../styles/global.css';
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" href="/favicon.ico" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>Create Post</title>
+	</head>
+	<body class="min-h-screen bg-slate-100 text-slate-900">
+		<main class="flex min-h-screen">
+			<LeftSidebar />
+			<div class="flex min-h-screen flex-1 flex-col">
+				<TopBarHeader title="Messenger" unreadCount={unreadCount} />
+
+				<section class="flex-1 p-6 lg:p-10">
+					<div class="mx-auto max-w-5xl space-y-6">
+						<div class="flex flex-wrap items-center justify-between gap-3">
+							<div>
+								<p class="text-xs font-semibold uppercase tracking-wide text-slate-500">Thread Composer</p>
+								<h1 class="mt-1 text-2xl font-semibold">Create New Post</h1>
+								<p class="mt-1 text-sm text-slate-600">
+									Draft a clear question or announcement for your class feed.
+								</p>
+							</div>
+							<div class="flex items-center gap-2">
+								<button
+									type="button"
+									class="rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50"
+								>
+									Save Draft
+								</button>
+								<a
+									href="/#threads"
+									class="rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50"
+								>
+									Cancel
+								</a>
+							</div>
+						</div>
+
+						<div class="rounded-xl border border-slate-200 bg-white p-6">
+							<form class="space-y-5">
+								<div class="grid gap-4 sm:grid-cols-2">
+									<label class="space-y-1">
+										<span class="text-xs font-semibold uppercase tracking-wide text-slate-500">Post Type</span>
+										<select class="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200">
+											<option>Question</option>
+											<option>Follow-Up</option>
+											<option>Announcement</option>
+										</select>
+									</label>
+
+									<label class="space-y-1">
+										<span class="text-xs font-semibold uppercase tracking-wide text-slate-500">Category</span>
+										<select class="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200">
+											<option>Homeworks</option>
+											<option>Exams</option>
+											<option>Projects</option>
+											<option>General</option>
+										</select>
+									</label>
+								</div>
+
+								<div class="grid gap-3 md:grid-cols-4">
+									<label class="block space-y-1 md:col-span-3">
+										<span class="text-xs font-semibold uppercase tracking-wide text-slate-500">Post Title</span>
+										<input
+											type="text"
+											placeholder="Example: Homework 2 Clarification on Submission Format"
+											class="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800 placeholder:text-slate-400 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200"
+										/>
+									</label>
+
+									<div class="flex items-end">
+										<label class="flex h-[42px] w-full items-center justify-center gap-2 rounded-md border border-slate-300 bg-slate-50 text-sm text-slate-700">
+											<input id="urgent-toggle" type="checkbox" />
+											<span class="font-medium">Mark as Urgent</span>
+										</label>
+									</div>
+								</div>
+
+								<label class="block space-y-1">
+									<span class="text-xs font-semibold uppercase tracking-wide text-slate-500">Linked Assignment (Optional)</span>
+									<select class="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200">
+										<option>None</option>
+										<option>HW1 - Due in 2 days</option>
+										<option>HW2 - Due in 6 days</option>
+										<option>Project 1 - Due in 1 week</option>
+									</select>
+								</label>
+
+								<label class="block space-y-1">
+									<span class="text-xs font-semibold uppercase tracking-wide text-slate-500">Post Body</span>
+									<textarea
+										rows="8"
+										placeholder="Describe the issue clearly, include what you tried, and what outcome you expected."
+										class="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800 placeholder:text-slate-400 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200"
+									></textarea>
+								</label>
+
+								<div class="rounded-lg border border-dashed border-slate-300 bg-slate-50 p-4 text-sm text-slate-600">
+									<div class="flex flex-wrap items-center justify-between gap-3">
+										<p>Attach files or screenshots (mock only)</p>
+										<button
+											type="button"
+											class="rounded-md border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-100"
+										>
+											Add Attachment
+										</button>
+									</div>
+								</div>
+
+								<div class="grid items-stretch gap-3 md:grid-cols-3 rounded-lg bg-slate-50 p-3 text-sm text-slate-700">
+									<details id="visibility-details" class="group relative h-full">
+										<summary class="list-none cursor-pointer rounded-md border border-slate-300 bg-white p-3 h-full">
+											<div class="flex h-full flex-col gap-1">
+												<p class="text-xs font-semibold uppercase tracking-wide text-slate-500">Who Can View</p>
+												<div class="mt-1 flex items-center justify-between gap-2">
+													<span id="visibility-current" class="font-medium text-slate-800">Everyone in class</span>
+													<span class="text-xs text-slate-500 transition-transform group-open:rotate-180">⌄</span>
+												</div>
+											</div>
+										</summary>
+										<div class="absolute left-0 top-full z-20 mt-1 w-full rounded-md border border-slate-200 bg-white p-2 shadow-lg">
+											<label class="flex items-center gap-2 rounded px-2 py-1.5 hover:bg-slate-50">
+												<input type="radio" name="visibility-scope" checked />
+												<span>Everyone in class</span>
+											</label>
+											<label class="flex items-center gap-2 rounded px-2 py-1.5 hover:bg-slate-50">
+												<input type="radio" name="visibility-scope" />
+												<span>Instructors only</span>
+											</label>
+										</div>
+									</details>
+
+									<details id="post-identity-details" class="group relative h-full">
+										<summary class="list-none cursor-pointer rounded-md border border-slate-300 bg-white p-3 h-full">
+											<div class="flex h-full flex-col gap-1">
+												<p class="text-xs font-semibold uppercase tracking-wide text-slate-500">Post As</p>
+												<div class="mt-1 flex items-center justify-between gap-2">
+													<span id="post-identity-current" class="font-medium text-slate-800">Post as (User name here)</span>
+													<span class="text-xs text-slate-500 transition-transform group-open:rotate-180">⌄</span>
+												</div>
+											</div>
+										</summary>
+										<div class="absolute left-0 top-full z-20 mt-1 w-full rounded-md border border-slate-200 bg-white p-2 shadow-lg">
+											<label class="flex items-center gap-2 rounded px-2 py-1.5 hover:bg-slate-50">
+												<input type="radio" name="post-identity" checked />
+												<span>Post as (User name here)</span>
+											</label>
+											<label class="flex items-center gap-2 rounded px-2 py-1.5 hover:bg-slate-50">
+												<input type="radio" name="post-identity" />
+												<span>Anonymous to classmates</span>
+											</label>
+											<label class="flex items-center gap-2 rounded px-2 py-1.5 hover:bg-slate-50">
+												<input type="radio" name="post-identity" />
+												<span>Anonymous to all</span>
+											</label>
+										</div>
+									</details>
+
+									<div class="rounded-md border border-slate-300 bg-white px-3 py-2 h-full">
+										<label class="flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-slate-500">
+											<input id="auto-notify-enabled" type="checkbox" />
+											Enable auto-notify
+										</label>
+										<div class="mt-1 flex items-center justify-center gap-2">
+											<span>Notify after</span>
+											<input
+												id="auto-notify-days"
+												type="number"
+												min="0"
+												value="2"
+												disabled
+												class="w-16 rounded border border-slate-300 bg-white px-2 py-1 text-sm text-slate-800 disabled:cursor-not-allowed disabled:bg-slate-100"
+											/>
+											<span>days</span>
+										</div>
+									</div>
+								</div>
+
+								<div class="flex flex-wrap items-center justify-between gap-3 border-t border-slate-200 pt-5">
+									<p class="text-xs text-slate-500">This is a mock form. Submit is for preview only.</p>
+									<div class="flex gap-2">
+										<button
+											type="button"
+											class="rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50"
+										>
+											Save Draft
+										</button>
+										<button
+											type="button"
+											class="rounded-md bg-green-600 px-4 py-2 text-sm font-semibold text-white hover:bg-green-700"
+										>
+											Submit
+										</button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</section>
+			</div>
+		</main>
+		<script is:inline>
+			const autoNotifyEnabled = document.getElementById('auto-notify-enabled');
+			const autoNotifyDays = document.getElementById('auto-notify-days');
+			const visibilityDetails = document.getElementById('visibility-details');
+			const visibilityCurrent = document.getElementById('visibility-current');
+			const visibilityOptions = document.querySelectorAll('input[name="visibility-scope"]');
+			const postIdentityDetails = document.getElementById('post-identity-details');
+			const postIdentityCurrent = document.getElementById('post-identity-current');
+			const postIdentityOptions = document.querySelectorAll('input[name="post-identity"]');
+
+			if (autoNotifyEnabled && autoNotifyDays) {
+				autoNotifyEnabled.addEventListener('change', () => {
+					autoNotifyDays.disabled = !autoNotifyEnabled.checked;
+				});
+			}
+
+			const updateSelectionAndClose = (options, valueElement, detailsElement) => {
+				if (!valueElement || !detailsElement || !options.length) {
+					return;
+				}
+
+				const setCurrentValue = () => {
+					const selectedOption = Array.from(options).find((option) => option.checked);
+					if (!selectedOption) {
+						return;
+					}
+
+					const selectedLabel = selectedOption.parentElement?.querySelector('span')?.textContent?.trim();
+					if (selectedLabel) {
+						valueElement.textContent = selectedLabel;
+					}
+				};
+
+				setCurrentValue();
+				options.forEach((option) => {
+					option.addEventListener('change', () => {
+						setCurrentValue();
+						detailsElement.removeAttribute('open');
+					});
+				});
+			};
+
+			updateSelectionAndClose(visibilityOptions, visibilityCurrent, visibilityDetails);
+			updateSelectionAndClose(postIdentityOptions, postIdentityCurrent, postIdentityDetails);
+		</script>
+	</body>
+</html>
