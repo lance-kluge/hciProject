@@ -1,24 +1,31 @@
 ---
 interface Props {
-	items: string[];
-	indentClass?: string;
-	filterGroup?: string;
+  items: string[];
+  indentClass?: string;
+  filterGroup?: string;
 }
 
 const { items, indentClass = 'pl-5', filterGroup } = Astro.props;
 ---
 
 <ul class="mt-1 space-y-1">
-	{items.map((item) => (
-		<li>
-			<button
-				type="button"
-				data-filter-group={filterGroup}
-				data-filter-value={filterGroup ? item : undefined}
-				class={`w-full rounded-md px-3 py-2 text-left text-sm text-slate-700 hover:bg-slate-100 hover:text-slate-900 ${indentClass}`}
-			>
-				{item}
-			</button>
-		</li>
-	))}
+  {items.map((item) => {
+    // normalize value for filtering
+    const value = filterGroup
+      ? item.toLowerCase().replace(/\s/g, '-').replace(/[^a-z0-9-]/g, '') // "Sent Messages" → "sent-messages"
+      : undefined;
+
+    return (
+      <li>
+        <button
+          type="button"
+          data-filter-group={filterGroup}
+          data-filter-value={value}
+          class={`w-full rounded-md px-3 py-2 text-left text-sm text-slate-700 hover:bg-slate-100 hover:text-slate-900 ${indentClass}`}
+        >
+          {item}
+        </button>
+      </li>
+    );
+  })}
 </ul>

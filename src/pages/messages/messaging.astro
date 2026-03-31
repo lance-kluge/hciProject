@@ -1,0 +1,38 @@
+---
+import LeftSidebar from '../../components/sidebar/LeftSidebar.astro';
+import TopBarHeader from '../../components/TopBarHeader.astro';
+import MessengerCard from '../../components/MessengerCard.astro';
+import { mockMessages } from '../../data/messages';
+import { unreadCount } from '../../data/sidebar';
+import '../../styles/global.css';
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Messages</title>
+  </head>
+  <body class="min-h-screen bg-slate-100 text-slate-900">
+    <main class="flex min-h-screen">
+      <!-- Sidebar -->
+      <LeftSidebar />
+
+      <!-- Main content area -->
+      <div class="flex min-h-screen flex-1 flex-col">
+        <!-- Top bar -->
+        <TopBarHeader title="Messages" unreadCount={unreadCount} />
+
+        <!-- Scrollable messages section -->
+        <section class="flex-1 p-6 lg:p-7 overflow-y-auto">
+          <div class="space-y-4">
+            {mockMessages.map((msg) => (
+              <MessengerCard message={msg} />
+            ))}
+          </div>
+        </section>
+      </div>
+    </main>
+  </body>
+</html>
