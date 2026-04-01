@@ -9,6 +9,8 @@ import {
   threadFilters,
   messagingFilters
 } from '../../data/sidebar';
+
+const withBase = (path: string) => `${import.meta.env.BASE_URL}${path.replace(/^\//, '')}`;
 ---
 
 <aside class="sticky top-0 h-screen w-72 shrink-0 self-start border-r border-slate-200 bg-white">
@@ -22,12 +24,12 @@ import {
     </section>
 
     <section>
-      <SidebarHeadingRow label="Threads" href="/#threads" filterGroup="thread" filterValue="all" />
+      <SidebarHeadingRow label="Threads" href={withBase('/#threads')} filterGroup="thread" filterValue="all" />
       <SidebarLinkList items={threadFilters} filterGroup="thread" />
     </section>
 
     <section>
-      <SidebarHeadingRow label="Messaging" href="/messages/messaging" filterGroup="message" filterValue="all" />
+      <SidebarHeadingRow label="Messaging" href={withBase('/messages/messaging/')} filterGroup="message" filterValue="all" />
       <SidebarLinkList items={messagingFilters} filterGroup="message"/>
     </section>
   </nav>

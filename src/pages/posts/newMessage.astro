@@ -3,12 +3,15 @@ import LeftSidebar from '../../components/sidebar/LeftSidebar.astro';
 import TopBarHeader from '../../components/TopBarHeader.astro';
 import { unreadCount } from '../../data/sidebar';
 import '../../styles/global.css';
+
+const withBase = (path: string) => `${import.meta.env.BASE_URL}${path.replace(/^\//, '')}`;
+const messagingPath = withBase('/messages/messaging/');
 ---
 
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <link rel="icon" href="/favicon.ico" />
+  <link rel="icon" href={withBase('/favicon.ico')} />
   <meta name="viewport" content="width=device-width" />
   <title>New Message</title>
 </head>
@@ -49,7 +52,7 @@ import '../../styles/global.css';
 
               <div class="flex justify-end gap-2">
                 <a
-                  href="/messages/messaging"
+                  href={messagingPath}
                   class="rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50"
                 >
                   Cancel
@@ -68,7 +71,7 @@ import '../../styles/global.css';
     </div>
   </main>
 
-  <script is:inline>
+  <script is:inline define:vars={{ messagingPath }}>
     const form = document.getElementById('newMessageForm');
 
     form.addEventListener('submit', (e) => {
@@ -97,7 +100,7 @@ import '../../styles/global.css';
       localStorage.setItem('messages', JSON.stringify(storedMessages));
 
       // Redirect back to messages page
-      window.location.href = '/messages/messaging';
+      window.location.href = messagingPath;
     });
   </script>
 </body>

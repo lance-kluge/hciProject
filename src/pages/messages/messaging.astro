@@ -5,12 +5,14 @@ import MessengerCard from '../../components/MessengerCard.astro';
 import { mockMessages } from '../../data/messages';
 import { unreadCount } from '../../data/sidebar';
 import '../../styles/global.css';
+
+const withBase = (path: string) => `${import.meta.env.BASE_URL}${path.replace(/^\//, '')}`;
 ---
 
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" href="/favicon.ico" />
+    <link rel="icon" href={withBase('/favicon.ico')} />
     <meta name="viewport" content="width=device-width" />
     <title>Messages</title>
   </head>
@@ -26,7 +28,7 @@ import '../../styles/global.css';
             <div class="flex items-center justify-between rounded-lg border border-slate-200 bg-white px-4 py-3">
               <h2 class="text-sm font-semibold uppercase tracking-wide text-slate-800">Messages</h2>
               <a
-                href="../posts/newMessage"
+                href={withBase('/posts/newMessage/')}
                 class="rounded-md bg-green-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-green-700"
               >
                 New Message
