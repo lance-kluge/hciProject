@@ -1,0 +1,110 @@
+---
+import LeftSidebar from '../../components/sidebar/LeftSidebar.astro';
+import TopBarHeader from '../../components/TopBarHeader.astro';
+import MessengerCard from '../../components/MessengerCard.astro';
+import { mockMessages } from '../../data/messages';
+import { unreadCount } from '../../data/sidebar';
+import '../../styles/global.css';
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Messages</title>
+  </head>
+  <body class="min-h-screen bg-slate-100 text-slate-900">
+    <main class="flex min-h-screen">
+      <LeftSidebar />
+      <div class="flex min-h-screen flex-1 flex-col">
+        <TopBarHeader title="Messages" unreadCount={unreadCount} />
+
+        <section class="flex-1 p-6 lg:p-7 overflow-y-auto">
+          <div class="space-y-4">
+
+            <div class="flex items-center justify-between rounded-lg border border-slate-200 bg-white px-4 py-3">
+              <h2 class="text-sm font-semibold uppercase tracking-wide text-slate-800">Messages</h2>
+              <a
+                href="../posts/newMessage"
+                class="rounded-md bg-green-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-green-700"
+              >
+                New Message
+              </a>
+            </div>
+
+            <div id="message-cards" class="space-y-4">
+              {mockMessages.map(msg => (
+                <div data-message-card data-message-category={msg.type.toLowerCase()}>
+                  <MessengerCard message={msg} />
+                </div>
+              ))}
+            </div>
+
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <script is:inline>
+      const normalize = str => str.toLowerCase().replace(/\s/g, '-').replace(/[^a-z0-9-]/g, '');
+
+      function setupFilters(group) {
+        const cards = Array.from(document.querySelectorAll(`[data-${group}-card]`));
+        const controls = Array.from(
+          document.querySelectorAll(`[data-filter-group="${group}"][data-filter-value]`)
+        );
+        const activeClass = ['bg-slate-200', 'text-slate-900'];
+
+        function applyFilter(filterValue) {
+          const normalizedFilter = filterValue === 'all' ? 'all' : normalize(filterValue);
+          cards.forEach(card => {
+            const category = normalize(card.dataset[`${group}Category`] || card.dataset[`${group}Type`] || '');
+            card.classList.toggle('hidden', normalizedFilter !== 'all' && category !== normalizedFilter);
+          });
+
+          controls.forEach(control => {
+            const isActive = normalize(control.getAttribute('data-filter-value')) === normalizedFilter;
+            activeClass.forEach(cls => control.classList.toggle(cls, isActive));
+            if (control.tagName === 'BUTTON') control.setAttribute('aria-pressed', String(isActive));
+          });
+        }
+
+        controls.forEach(control => control.addEventListener('click', () => applyFilter(control.getAttribute('data-filter-value'))));
+        applyFilter('all');
+      }
+
+      // -----------------------------
+      // Add localStorage messages first
+      // -----------------------------
+      const container = document.getElementById('message-cards');
+      const storedMessages = JSON.parse(localStorage.getItem('messages') || '[]');
+
+      storedMessages.forEach(msg => {
+        const wrapper = document.createElement('div');
+        wrapper.dataset.messageCard = '';
+        wrapper.dataset.messageCategory = msg.type.toLowerCase();
+        wrapper.innerHTML = `
+          <article class="flex items-center gap-3 rounded-lg border border-slate-200 bg-white px-4 py-3">
+            <div class="h-10 w-10 shrink-0 rounded-full bg-slate-200"></div>
+            <div class="min-w-0 flex-1">
+              <div class="flex items-center gap-2">
+                <h3 class="truncate text-sm font-semibold text-slate-900">${msg.name}</h3>
+                <p class="ml-auto text-xs text-slate-500">${msg.time}</p>
+              </div>
+              <p class="truncate text-sm text-slate-600">${msg.lastMessage}</p>
+            </div>
+            ${msg.unread ? '<div class="h-2.5 w-2.5 rounded-full bg-blue-500"></div>' : ''}
+          </article>
+        `;
+        container.appendChild(wrapper);
+      });
+
+      // -----------------------------
+      // Now setup filters after all cards exist
+      // -----------------------------
+      setupFilters('thread');
+      setupFilters('message');
+    </script>
+  </body>
+</html>

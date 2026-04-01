@@ -1,0 +1,32 @@
+---
+interface Message {
+  id: string;
+  name: string;
+  lastMessage: string;
+  time: string;
+  unread?: boolean;
+  avatarUrl?: string;
+  type: string; // must match normalized filter: 'sent-messages', 'pending-responses', 'important-messages'
+}
+
+const { message } = Astro.props;
+
+const normalize = (str: string) =>
+  str.toLowerCase().replace(/\s/g, '-').replace(/[^a-z0-9-]/g, '');
+---
+
+<article
+  class="flex items-center gap-3 rounded-lg border border-slate-200 bg-white px-4 py-3"
+  data-message-card
+  data-message-type={normalize(message.type)}
+>
+  <div class="h-10 w-10 shrink-0 rounded-full bg-slate-200"></div>
+  <div class="min-w-0 flex-1">
+    <div class="flex items-center gap-2">
+      <h3 class="truncate text-sm font-semibold text-slate-900">{message.name}</h3>
+      <p class="ml-auto text-xs text-slate-500">{message.time}</p>
+    </div>
+    <p class="truncate text-sm text-slate-600">{message.lastMessage}</p>
+  </div>
+  {message.unread && <div class="h-2.5 w-2.5 rounded-full bg-blue-500"></div>}
+</article>
