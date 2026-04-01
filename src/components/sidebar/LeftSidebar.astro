@@ -3,32 +3,32 @@ import ClassSelectorDropdown from './ClassSelectorDropdown.astro';
 import SidebarHeadingRow from './SidebarHeadingRow.astro';
 import SidebarLinkList from './SidebarLinkList.astro';
 import {
-	unreadCount,
-	selectedClass,
-	classOptions,
-	threadFilters,
-	messagingFilters
+  unreadCount,
+  selectedClass,
+  classOptions,
+  threadFilters,
+  messagingFilters
 } from '../../data/sidebar';
 ---
 
 <aside class="sticky top-0 h-screen w-72 shrink-0 self-start border-r border-slate-200 bg-white">
-	<div class="sticky top-0 z-10 border-b border-slate-200 bg-white px-4 py-4">
-		<ClassSelectorDropdown selectedClass={selectedClass} classOptions={classOptions} />
-	</div>
+  <div class="sticky top-0 z-10 border-b border-slate-200 bg-white px-4 py-4">
+    <ClassSelectorDropdown selectedClass={selectedClass} classOptions={classOptions} />
+  </div>
 
-	<nav aria-label="Inbox sidebar" class="h-[calc(100vh-57px)] space-y-6 overflow-y-auto px-4 py-6">
-		<section>
-			<SidebarHeadingRow label="Inbox" count={unreadCount} />
-		</section>
+  <nav aria-label="Inbox sidebar" class="h-[calc(100vh-57px)] space-y-6 overflow-y-auto px-4 py-6">
+    <section>
+      <SidebarHeadingRow label="Inbox" count={unreadCount} />
+    </section>
 
-		<section>
-			<SidebarHeadingRow label="Threads" href="/#threads" filterGroup="thread" filterValue="all" />
-			<SidebarLinkList items={threadFilters} filterGroup="thread" />
-		</section>
+    <section>
+      <SidebarHeadingRow label="Threads" href="/#threads" filterGroup="thread" filterValue="all" />
+      <SidebarLinkList items={threadFilters} filterGroup="thread" />
+    </section>
 
-		<section>
-			<SidebarHeadingRow label="Messaging" href="/messages/messaging" filterGroup="message" filterValue="all" />
-			<SidebarLinkList items={messagingFilters} filterGroup="message"/>
-		</section>
-	</nav>
+    <section>
+      <SidebarHeadingRow label="Messaging" href="/messages/messaging" filterGroup="message" filterValue="all" />
+      <SidebarLinkList items={messagingFilters} filterGroup="message"/>
+    </section>
+  </nav>
 </aside>

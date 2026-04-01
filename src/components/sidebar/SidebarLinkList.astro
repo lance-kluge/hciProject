@@ -6,14 +6,14 @@ interface Props {
 }
 
 const { items, indentClass = 'pl-5', filterGroup } = Astro.props;
+
+const normalize = (str: string) =>
+  str.toLowerCase().replace(/\s/g, '-').replace(/[^a-z0-9-]/g, '');
 ---
 
 <ul class="mt-1 space-y-1">
   {items.map((item) => {
-    // normalize value for filtering
-    const value = filterGroup
-      ? item.toLowerCase().replace(/\s/g, '-').replace(/[^a-z0-9-]/g, '') // "Sent Messages" → "sent-messages"
-      : undefined;
+    const value = filterGroup ? normalize(item) : undefined;
 
     return (
       <li>

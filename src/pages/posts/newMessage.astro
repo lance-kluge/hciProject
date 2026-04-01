@@ -1,0 +1,104 @@
+---
+import LeftSidebar from '../../components/sidebar/LeftSidebar.astro';
+import TopBarHeader from '../../components/TopBarHeader.astro';
+import { unreadCount } from '../../data/sidebar';
+import '../../styles/global.css';
+---
+
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <link rel="icon" href="/favicon.ico" />
+  <meta name="viewport" content="width=device-width" />
+  <title>New Message</title>
+</head>
+<body class="min-h-screen bg-slate-100 text-slate-900">
+  <main class="flex min-h-screen">
+    <LeftSidebar />
+
+    <div class="flex min-h-screen flex-1 flex-col">
+      <TopBarHeader title="New Message" unreadCount={unreadCount} />
+
+      <section class="flex-1 p-6 lg:p-10">
+        <div class="mx-auto max-w-3xl space-y-6">
+          <div class="rounded-xl border border-slate-200 bg-white p-6">
+            <h1 class="text-2xl font-semibold text-slate-900 mb-4">Compose New Message</h1>
+
+            <form id="newMessageForm" class="space-y-5">
+              <label class="block space-y-1">
+                <span class="text-xs font-semibold uppercase tracking-wide text-slate-500">Recipient</span>
+                <input
+                  type="text"
+                  name="recipient"
+                  placeholder="Recipient name"
+                  class="w-full rounded-md border border-slate-300 px-3 py-2 text-sm text-slate-800"
+                  required
+                />
+              </label>
+
+              <label class="block space-y-1">
+                <span class="text-xs font-semibold uppercase tracking-wide text-slate-500">Message</span>
+                <textarea
+                  name="body"
+                  rows="6"
+                  placeholder="Type your message here"
+                  class="w-full rounded-md border border-slate-300 px-3 py-2 text-sm text-slate-800"
+                  required
+                ></textarea>
+              </label>
+
+              <div class="flex justify-end gap-2">
+                <a
+                  href="/messages/messaging"
+                  class="rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50"
+                >
+                  Cancel
+                </a>
+                <button
+                  type="submit"
+                  class="rounded-md bg-green-600 px-4 py-2 text-sm font-semibold text-white hover:bg-green-700"
+                >
+                  Send
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script is:inline>
+    const form = document.getElementById('newMessageForm');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      // Collect form data
+      const formData = new FormData(form);
+      const recipient = formData.get('recipient');
+      const body = formData.get('body');
+
+      // Get stored messages from localStorage
+      const storedMessages = JSON.parse(localStorage.getItem('messages') || '[]');
+
+      // Create new message object
+      const newMessage = {
+        id: `msg-${Date.now()}`,
+        name: recipient,
+        lastMessage: body,
+        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        type: 'sent-messages', // always sent-messages for new messages
+        unread: true
+      };
+
+      // Add to stored messages
+      storedMessages.push(newMessage);
+      localStorage.setItem('messages', JSON.stringify(storedMessages));
+
+      // Redirect back to messages page
+      window.location.href = '/messages/messaging';
+    });
+  </script>
+</body>
+</html>
